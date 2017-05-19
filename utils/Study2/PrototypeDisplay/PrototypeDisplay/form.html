@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>SocialAR proprototype</title>
+	<link type="text/css" rel="stylesheet" href="main.css">
+	<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+	<form id="userInput" action="/proprototype.html">
+		<div class="inputBox">
+			<p>每個文字停留秒數：</p><input type="number" id="SEC" value="3" />
+		</div>
+		<div class="inputBox">
+			<p>文字大小(px)：</p><input type="number" id="FONTSIZE" value="30" />
+		</div>
+		<div class="inputBox">
+			<p>方向角(deg)：</p><input type="number" id="ANGLE" value="0" />
+		</div>
+		<div class="inputBox">
+			<p>圓半徑(px)：</p><input type="number" id="RADIUS" value="300" />
+		</div>
+		<div class="inputBox">
+			<p>是否為英文(1/0)：</p><input type="number" id="ENG" value="0" />
+		</div>
+		<div class="inputBox">
+			<p>是否為順時針(1/0)：</p><input type="number" id="CLOCKWISE" value="1" />
+		</div>
+		<div class="inputBox">
+			<p>間隔角度(字距)：</p><input type="number" id="SPACE" value="10" />
+		</div>
+		<div class="inputBox">
+			<p id="diction">字庫：</p><textarea id="DICT"></textarea>
+		</div>
+		<div class="inputBox">
+			<input id='submit' type="submit" value="Submit">
+		</div>
+	</form>
+	<script type="text/javascript">
+		$('#submit').click( function() {
+			window.localStorage.setItem('settings', JSON.stringify({
+				SEC: +$("#SEC").val(),
+				FONTSIZE: +$("#FONTSIZE").val(),
+				ANGLE: +$("#ANGLE").val(),
+				RADIUS: +$("#RADIUS").val(),
+				ENG: +$("#ENG").val(),
+				CLOCKWISE: +$("#CLOCKWISE").val(),
+				SPACE: +$("#SPACE").val(),
+				DICT: $("#DICT").val()
+			}))
+		});
+	</script>
+</body>
+
+</html>
