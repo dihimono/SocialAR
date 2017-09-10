@@ -22,11 +22,12 @@ with open(file_name, 'rb') as csvfile:
 		#a.append(q)
 		count = count + 1
 
-#print a
+print count
+print a
 fig = plt.figure()
 ax = Axes3D(fig)
 
-rad = np.linspace(0, count, count)
+rad = np.linspace(0, count + 1, count + 1)
 azm = np.linspace(0, 2 * np.pi, 9)
 
 r, th = np.meshgrid(rad, azm)
