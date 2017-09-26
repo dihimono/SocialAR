@@ -14,4 +14,5 @@ Please refer to [dropbox paper link](https://paper.dropbox.com/doc/SocialAR-Note
   - face_transform: calculate the ratio of points and face
 - Study2
   - rate: calculate corresponding rates of click events
+  - ButtonTriger: Arduino code for buttons
   - DisplayPrototype: website prototype for study2 display
