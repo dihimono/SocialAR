@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="HandheldFriendly" content="true" />
+	<meta name="MobileOptimized" content="320" />
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, width=device-width, user-scalable=no" />
+
+	<title>SocialAR client</title>
+	<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+
+	<script>
+
+		var socket = io.connect();
+		var curr = 1;
+		var timer;
+
+		// press enter : the list fade IN 
+		socket.on('start_c', function(list) {
+				console.log(list);
+		    	for (var i = 1; i <= 7; i++) {
+		    		var w = "#w" + i; 
+		    		$(w).text( list[i-1] );
+		    		$(w).fadeTo(1000, 1);
+		    	}
+		    	curr = 1;
+				$('.list').fadeIn(1000);
+				setTimeout( function(){
+					timer = setTimeout( 'fadeWord()', 4000 );
+				}, 1000);
+		});
+
+		socket.on('click_c', function() {
+			fadeWord();
+		});
+
+		function fadeWord() {
+			clearTimeout(timer);
+			if( curr > 7 ) return;
+			socket.emit('fade_word', curr);
+			var w = "#w" + curr; 
+			$(w).fadeTo(1000, 0);
+			fading = true;
+			setTimeout( function(){ fading = false; }, 1000 );
+			curr += 1;
+			timer = setTimeout( 'fadeWord()', 4000 );
+			return;
+		}
+
+	</script>
+
+	<style type="text/css">
+		* {
+		  -webkit-box-sizing: border-box;
+		     -moz-box-sizing: border-box;
+		          box-sizing: border-box;
+		}
+
+		body {
+			background-color: black;
+			transform: scale(1,-1);
+		}
+
+		.list {
+			padding-bottom: 20px;
+			margin: auto;
+			text-align: center;
+			display: none;
+		}
+
+		.word {
+			color: white;
+			font-size: 8.4mm;
+			margin: 4.2mm;
+		}
+	</style>
+	
+</head>
+
+<body>
+	<div class="list">
+		<div class="word" id="w1"></div>
+		<div class="word" id="w2"></div>
+		<div class="word" id="w3"></div>
+		<div class="word" id="w4"></div>
+		<div class="word" id="w5"></div>
+		<div class="word" id="w6"></div>
+		<div class="word" id="w7"></div>
+	</div>
+</body>
+
+</html>

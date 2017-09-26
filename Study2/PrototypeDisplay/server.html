@@ -1,0 +1,45 @@
+<html>
+  <head>
+  	<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="wordlist.js"></script>
+  </head>
+  <body>
+    <script>
+      var cnt = 0;
+    	var socket = io.connect();
+
+      function showList() {
+        console.log( cnt + " " + wordlist[cnt]);
+        socket.emit('show_list', wordlist[cnt]);
+        cnt++;
+        if( cnt > 32 ) cnt = 0;
+      };
+
+    	$(document).keyup(function (e){
+
+        // press enter : the list fade IN 
+        if( e.which === 13 ) {
+          console.log('start a round.');
+          socket.emit('start_round', wordlist[cnt]);
+          setTimeout(showList, 5000);
+          setTimeout(showList, 45000);
+          setTimeout(showList, 85000);
+        }
+
+    		// Space = 32, Y = 89, N = 78
+    		if( e.which === 32 ) { socket.emit('distract'); }
+        if( e.which === 78 ) { socket.emit('click_s', 'no'); }
+        if( e.which === 89 ) { socket.emit('click_s', 'yes'); }
+
+    	});
+    </script>
+
+    <div>
+      This is our server.html file <br>
+      press enter : the list fade IN <br>
+      press space : a word fade OUT <br>
+    </div>
+
+  </body>
+</html>
