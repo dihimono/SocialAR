@@ -44,7 +44,8 @@ class Person(object):
             for sentence in sentences:
                 s = re.sub(r".* fade out(.*)", r"#", sentence)
                 s = re.sub(r".*Distract(.*)", r"d", s)
-                if s == 'yes' or s == 'no': s = "1"
+                s = re.sub(r".*yes(.*)", r"1", s)
+                s = re.sub(r".*no(.*)", r"1", s)
                 new_sentences.append(s)
             new_set = '\n'.join(new_sentences)
     
