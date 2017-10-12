@@ -66,8 +66,8 @@ function HeatmapPlot() {
 	var layout = {
 	  showlegend: false,
 	  autosize: true,
-	  width: 600,
-	  height: 550,
+	  width: 1200,
+	  height: 600,
 	  margin: {t: 50},
 	  hovermode: 'closest',
 	  bargap: 0,
