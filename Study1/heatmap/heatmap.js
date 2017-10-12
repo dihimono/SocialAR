@@ -25,10 +25,11 @@ $(document).ready(function() {
 });
 
 var x = [], y = [];
+var dis;
 
 function HeatmapPlot() {
 	var id = parseInt($('#caseNum').text());
-	var dis = $('#distance').val();
+	dis = parseInt($('#distance').val());
 	var filename = "./data/test" + id + "-" + dis + ".csv";
 	console.log(filename);
 	$.ajax({
@@ -62,7 +63,7 @@ function HeatmapPlot() {
 	var data = [XYContour, XDensity, YDensity];
 	var layout = {
 	  showlegend: false,
-	  autosize: false,
+	  autosize: true,
 	  width: 600,
 	  height: 550,
 	  margin: {t: 50},
@@ -100,7 +101,11 @@ function parseCSV(data) {
 	var rowData = data.split(/\r?\n|\r/);
 	for(var i = 0;i < rowData.length;i++) {
 		var columnData = rowData[i].split(',');
-		x.push(columnData[1] * Math.cos(columnData[2] / (2 * Math.PI)));
-		y.push(columnData[1] * Math.sin(columnData[2] / (2 * Math.PI)));
+		var xx = dis * Math.tan(columnData[1] * Math.PI / 180) * Math.cos(columnData[2] * Math.PI / 180);
+		var yy = dis * Math.tan(columnData[1] * Math.PI / 180) * Math.sin(columnData[2] * Math.PI / 180);
+		if(Math.abs(xx) > 50 || Math.abs(yy) > 50) continue;
+		x.push(xx);
+		y.push(yy);
 	}
+	console.log(x.length);		
 }
