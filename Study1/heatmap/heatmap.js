@@ -1,3 +1,6 @@
+var closeValid = [1, 2, 5, 6, 8, 15];
+var farValid = [0, 1, 2, 3, 4, 6, 8, 10, 12];
+
 $(document).ready(function() {
 	$('#distance').change(function() {
 		var v = $('#distance').val();
@@ -25,7 +28,6 @@ $(document).ready(function() {
 });
 
 var x = [], y = [];
-var dis;
 
 function HeatmapPlot() {
 	var id = parseInt($('#caseNum').text());
@@ -89,7 +91,23 @@ function HeatmapPlot() {
 	    showgrid: false,
 	    zeroline: true
 	  },
-	  colorbar: {}
+	  colorbar: {},
+	  images: [
+	  {
+	  	"source": "./face.png",
+        "xref": "x",
+        "yref": "y",
+        "x": 0,
+        "y": 1,
+        "sizex": 22.5,
+        "sizey": 22,
+        "sizing": "strech",
+        "xanchor": "center",
+        "yanchor": "middle",
+        "layer": "above",
+        "opacity": 0.6
+	  }
+	  ]
 	};
 	Plotly.newPlot('plot', data, layout);
 
