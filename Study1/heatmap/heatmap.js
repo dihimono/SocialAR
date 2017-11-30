@@ -12,23 +12,23 @@ $(document).ready(function() {
 		var v = parseInt($('#caseNum').text());
 		if(v != 0) v = v - 1;
 		$('#caseNum').text(v.toString());
-		HeatmapPlot();
+		HeatGridmapPlot();
 	})
 
 	$('#caseRight').click(function() {
 		var v = parseInt($('#caseNum').text());
 		if(v != 16) v = v + 1;
 		$('#caseNum').text(v.toString());
-		HeatmapPlot();
+		HeatGridmapPlot();
 	})
 
 	$('#submit').click(function() {
-		HeatmapPlot();
+		HeatGridmapPlot();
 	});
 });
 
 var x = [], y = [];
-
+/*
 function HeatmapPlot() {
 	var id = parseInt($('#caseNum').text());
 	dis = parseInt($('#distance').val());
@@ -112,6 +112,103 @@ function HeatmapPlot() {
 	Plotly.newPlot('plot', data, layout);
 
 }
+*/
+function HeatGridmapPlot() {
+	var id = parseInt($('#caseNum').text());
+	dis = parseInt($('#distance').val());
+	var filename = "./data/test" + id + "-" + dis + ".csv";
+	console.log(filename);
+	$.ajax({
+  		url: filename,
+  		dataType: "text",
+	}).done(parseCSV);
+	/* 
+	 var XYContour = {
+	  x: x,
+	  y: y,
+	  name: 'density',
+	  ncontours: 20,
+	  colorscale: 'Hot',
+	  reversescale: true,
+	  showscale: false,
+	  type: 'heatmap'
+	};
+	var XDensity = {
+	  x: x,
+	  name: 'x density',
+	  marker: {color: 'rgb(102,0,0)'},
+	  yaxis: 'y2',
+	  type: 'histogram'
+	};
+	var YDensity = {
+	  y: y,
+	  name: 'y density',
+	  marker: {color: 'rgb(102,0,0)'},
+	  xaxis: 'x2',
+	  type: 'histogram'
+	};
+	var data = [XYContour, XDensity, YDensity]; 
+	var data = [0]
+	var layout = {
+	  showlegend: false,
+	  autosize: true,
+	  width: 1200,
+	  height: 600,
+	  margin: {t: 50},
+	  hovermode: 'closest',
+	  bargap: 0,
+	  xaxis: {
+	    domain: [0, 0.85],
+	    showgrid: false,
+	    zeroline: true
+	  },
+	  yaxis: {
+	    domain: [0, 0.85],
+	    showgrid: false,
+	    zeroline: true
+	  },
+	  xaxis2: {
+	    domain: [0.85, 1],
+	    showgrid: false,
+	    zeroline: true
+	  },
+	  yaxis2: {
+	    domain: [0.85, 1],
+	    showgrid: false,
+	    zeroline: true
+	  },
+	  colorbar: {},
+	  images: [
+	  {
+	  	"source": "./face.png",
+        "xref": "x",
+        "yref": "y",
+        "x": 0,
+        "y": 1,
+        "sizex": 25,
+        "sizey": 25,
+        "sizing": "strech",
+        "xanchor": "center",
+        "yanchor": "middle",
+        "layer": "above",
+        "opacity": 0.6
+	  }
+	  ]
+	};
+	Plotly.newPlot('plot', data, layout); */
+var data = [
+  {
+    z: [[1, 20, 30], [20, 1, 60], [30, 60, 1]],
+    type: 'heatmap'
+  }
+];
+
+Plotly.newPlot('myDiv', data);
+	
+	
+}
+
+
 
 function parseCSV(data) {
 	x = [];
