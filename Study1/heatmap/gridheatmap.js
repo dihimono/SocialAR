@@ -52,41 +52,40 @@ console.log("results");
 
 var data = [
 {
-z:z_count,
-    type: 'heatmap'
+	z: z_count,
+    type: 'heatmap',
+	zmin: 0,
+	zmax: 450
 }
 ];
 var layout = {
-showlegend: false,
-            autosize: false,
-            width: 600,
-            height: 600,
-            margin: {t: 50},
-            hovermode: 'closest',
-            bargap: 0,
+	showlegend: false,
+    autosize: false,
+    width: 600,
+    height: 600,
+    margin: {t: 50},
+    hovermode: 'closest',
+    bargap: 0,
+    images: [{
+        "source": "./face.png",
+        "xref": "x",
+        "yref": "y",
+        "x": face_position_x,
+        "y": face_position_y,
+        "sizex": 25/gridsize,
+        "sizey": 25/gridsize,
+        "sizing": "strech",
+        "xanchor": "center",
+        "yanchor": "middle",
+        "layer": "above",
+        "opacity": 0.6
+     }],
+  };
+  console.log(face_position_x);
+  console.log(face_position_y);
 
-
-            images: [
-            {
-              "source": "./face.png",
-              "xref": "x",
-              "yref": "y",
-              "x": face_position_x,
-              "y": face_position_y,
-              "sizex": 25/gridsize,
-              "sizey": 25/gridsize,
-              "sizing": "strech",
-              "xanchor": "center",
-              "yanchor": "middle",
-              "layer": "above",
-              "opacity": 0.6
-            }
-            ]
-};
-  console.log( face_position_x)
-  console.log( face_position_y)
-
-  Plotly.newPlot('myplot', data,layout);
+  console.log(layout);
+  Plotly.newPlot('myplot', data, layout);
 }
 
 
