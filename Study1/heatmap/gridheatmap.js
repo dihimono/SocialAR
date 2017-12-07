@@ -24,8 +24,6 @@ $(document).ready(function() {
 
     $('#submit').click(function() {
         HeatmapPlot2();
-        console.log("final z")
-        console.log(z_count)
         });
 });
 
@@ -37,7 +35,6 @@ function HeatmapPlot2() {
   var id = parseInt($('#caseNum').text());
   dis = parseInt($('#distance').val());
   var filename = "./data/test" + id + "-" + dis + ".csv";
-  console.log(filename);
   $.ajax({
 url: filename,
 dataType: "text",
@@ -45,17 +42,14 @@ dataType: "text",
 
 var gridsize=$("#grid").val();
 var groups=Math.round(200/gridsize);
-DataProcess(x,y,gridsize,-100,groups);
-
-console.log("results");
-
+DataProcess(x, y, gridsize, -100, groups);
 
 var data = [
 {
-	z: z_count,
-    type: 'heatmap',
-	zmin: 0,
-	zmax: 450
+  z: z_count,
+  type: 'heatmap',
+  zmin: 0,
+  zmax: 60
 }
 ];
 var layout = {
@@ -81,10 +75,6 @@ var layout = {
         "opacity": 0.6
      }],
   };
-  console.log(face_position_x);
-  console.log(face_position_y);
-
-  console.log(layout);
   Plotly.newPlot('myplot', data, layout);
 }
 
@@ -101,20 +91,19 @@ function parseCSV(data) {
     x.push(xx);
     y.push(yy);
   }
-  console.log(x.length);		
 }
 
 function DataProcess(x, y, gridsize, lowbound, groupsnum){
   z_count=[];
+  var totalCount = 0;
   for(var i = 0;i < groupsnum;i++) {
     z_count[i]=[];
     for(var j = 0;j < groupsnum;j++) {
-      var thisGridCount;
-      thisGridCount=0;
+      var thisGridCount = 0;
 
       //record the zero position
       var xdown = lowbound + i * gridsize;
-      var xup = lowbound+ (i + 1) * gridsize;
+      var xup = lowbound + (i + 1) * gridsize;
       var ydown = lowbound + j * gridsize;
       var yup = lowbound+ (j + 1) * gridsize;
       if(xdown * xup <= 0){
@@ -137,14 +126,19 @@ function DataProcess(x, y, gridsize, lowbound, groupsnum){
       for(var dataiter = 0;dataiter < x.length;dataiter++) {
         if(x[dataiter] >= lowbound + i * gridsize &&
            x[dataiter] < lowbound + (i + 1) * gridsize && 
-           y[dataiter] >= lowbound+ j * gridsize && 
-           y[dataiter]<lowbound+ (j + 1) * gridsize) {
-          thisGridCount += 1;
+           y[dataiter] >= lowbound + j * gridsize && 
+           y[dataiter] < lowbound+ (j + 1) * gridsize) {
+           thisGridCount += 1;
         }
       }
       z_count[i][j] = thisGridCount;
+      totalCount += thisGridCount;
     }
   }
+  console.log("Total data points: " + totalCount);
+  for(var i = 0;i < groupsnum;i++)
+    for(var j = 0;j < groupsnum;j++)
+      z_count[i][j] = z_count[i][j] * 100.0 / totalCount;
 }
 
 
