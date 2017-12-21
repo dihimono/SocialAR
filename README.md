@@ -12,6 +12,7 @@ Please refer to [dropbox paper link](https://paper.dropbox.com/doc/SocialAR-Note
   - distribute: categorize data points by ecc. and angle
   - plot: draw the result of distribute onto a polar coordinate system
   - face_transform: calculate the ratio of points and face
+  - eye_tag: tag eyes' position on the given video
 - Study2
   - rate: calculate corresponding rates of click events
   - ButtonTriger: Arduino code for buttons
