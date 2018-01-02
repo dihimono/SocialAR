@@ -25,14 +25,19 @@ $(document).ready(function() {
     $('#submit').click(function() {
         HeatmapPlot2();
         });
+
+    $('#all').click(function() {
+        console.log("test");
+        OverallPlotCheck();
+        });
 });
 
 var x = [], y = [], z_count = [] ;
-var face_position_x,face_position_y
-
+var face_position_x, face_position_y
+var id, groups, gridsize
 
 function HeatmapPlot2() {
-  var id = parseInt($('#caseNum').text());
+  id = parseInt($('#caseNum').text());
   dis = parseInt($('#distance').val());
   var filename = "./data/test" + id + "-" + dis + ".csv";
   $.ajax({
@@ -40,42 +45,41 @@ url: filename,
 dataType: "text",
 }).done(parseCSV);
 
-var gridsize=$("#grid").val();
-var groups=Math.round(200/gridsize);
+gridsize = $("#grid").val();
+groups = Math.round(200/gridsize);
 DataProcess(x, y, gridsize, -100, groups);
 
 var data = [
 {
-  z: z_count,
-  type: 'heatmap',
-  zmin: 0,
-  zmax: 60
+z: z_count,
+colorscale: 'Electric',
+     type: 'heatmap'
 }
 ];
 var layout = {
-	showlegend: false,
-    autosize: false,
-    width: 600,
-    height: 600,
-    margin: {t: 50},
-    hovermode: 'closest',
-    bargap: 0,
-    images: [{
-        "source": "./face.png",
-        "xref": "x",
-        "yref": "y",
-        "x": face_position_x,
-        "y": face_position_y,
-        "sizex": 25/gridsize,
-        "sizey": 25/gridsize,
-        "sizing": "strech",
-        "xanchor": "center",
-        "yanchor": "middle",
-        "layer": "above",
-        "opacity": 0.6
-     }],
-  };
-  Plotly.newPlot('myplot', data, layout);
+showlegend: false,
+            autosize: false,
+            width: 600,
+            height: 600,
+            margin: {t: 50},
+            hovermode: 'closest',
+            bargap: 0,
+            images: [{
+              "source": "./face.png",
+              "xref": "x",
+              "yref": "y",
+              "x": face_position_x,
+              "y": face_position_y,
+              "sizex": 25/gridsize,
+              "sizey": 25/gridsize,
+              "sizing": "strech",
+              "xanchor": "center",
+              "yanchor": "middle",
+              "layer": "above",
+              "opacity": 0.6
+            }],
+};
+Plotly.newPlot('myplot', data, layout);
 }
 
 
@@ -93,11 +97,14 @@ function parseCSV(data) {
   }
 }
 
+var recordCount = [];
+
 function DataProcess(x, y, gridsize, lowbound, groupsnum){
   z_count=[];
+  recordCount[id] = [];
   var totalCount = 0;
   for(var i = 0;i < groupsnum;i++) {
-    z_count[i]=[];
+    z_count[i]=[], recordCount[id][i] = [];
     for(var j = 0;j < groupsnum;j++) {
       var thisGridCount = 0;
 
@@ -125,10 +132,10 @@ function DataProcess(x, y, gridsize, lowbound, groupsnum){
       //record the zero position
       for(var dataiter = 0;dataiter < x.length;dataiter++) {
         if(x[dataiter] >= lowbound + i * gridsize &&
-           x[dataiter] < lowbound + (i + 1) * gridsize && 
-           y[dataiter] >= lowbound + j * gridsize && 
-           y[dataiter] < lowbound+ (j + 1) * gridsize) {
-           thisGridCount += 1;
+            x[dataiter] < lowbound + (i + 1) * gridsize && 
+            y[dataiter] >= lowbound + j * gridsize && 
+            y[dataiter] < lowbound+ (j + 1) * gridsize) {
+          thisGridCount += 1;
         }
       }
       z_count[i][j] = thisGridCount;
@@ -136,9 +143,67 @@ function DataProcess(x, y, gridsize, lowbound, groupsnum){
     }
   }
   console.log("Total data points: " + totalCount);
+  var tmp = 0;
   for(var i = 0;i < groupsnum;i++)
-    for(var j = 0;j < groupsnum;j++)
+    for(var j = 0;j < groupsnum;j++) {
       z_count[i][j] = z_count[i][j] * 100.0 / totalCount;
+      recordCount[id][i][j] = z_count[i][j];
+      tmp += z_count[i][j];
+    }
+  console.log(tmp);
+  console.log(id);
+  console.log(recordCount[id]);
 }
 
-
+function OverallPlotCheck() {
+  var totalPercentile = [];
+  console.log(recordCount);
+  console.log(groups);
+  for(var i = 0;i < groups;i++) totalPercentile.push([]);
+  for(var i = 0;i < groups;i++)
+    for(var j = 0;j < groups;j++) totalPercentile[i].push(0);
+  var tmp = 0;
+  for(var i = 0;i < groups;i++)
+    for(var j = 0;j < groups;j++) {
+      for(var k = 0;k <= 16;k++) {
+        if(typeof recordCount[k][i][j] !== "number")
+          console.log("fail");
+        totalPercentile[i][j] += recordCount[k][i][j];
+      }
+      totalPercentile[i][j] /= 17;
+      tmp += totalPercentile[i][j];
+    }
+  console.log(totalPercentile);
+  console.log(tmp);
+var data = [
+{
+z: totalPercentile,
+colorscale: 'Electric',
+     type: 'heatmap'
+}
+];
+var layout = {
+showlegend: false,
+            autosize: false,
+            width: 600,
+            height: 600,
+            margin: {t: 50},
+            hovermode: 'closest',
+            bargap: 0,
+            images: [{
+              "source": "./face.png",
+              "xref": "x",
+              "yref": "y",
+              "x": face_position_x,
+              "y": face_position_y,
+              "sizex": 25/gridsize,
+              "sizey": 25/gridsize,
+              "sizing": "strech",
+              "xanchor": "center",
+              "yanchor": "middle",
+              "layer": "above",
+              "opacity": 0.6
+            }]
+};
+Plotly.newPlot('allplot', data, layout);
+}
