@@ -1,6 +1,3 @@
-var closeValid = [1, 2, 5, 6, 8, 15];
-var farValid = [0, 1, 2, 3, 4, 6, 8, 10, 12];
-
 $(document).ready(function() {
     $('#distance').change(function() {
         var v = $('#distance').val();
@@ -30,11 +27,16 @@ $(document).ready(function() {
         console.log("test");
         OverallPlotCheck();
         });
+
+    $('#valid').click(function() {
+        console.log("test");
+        ValidPlotCheck();
+        });
 });
 
 var x = [], y = [], z_count = [] ;
 var face_position_x, face_position_y
-var id, groups, gridsize
+var id, groups, gridsize, dis
 
 function HeatmapPlot2() {
   id = parseInt($('#caseNum').text());
@@ -52,7 +54,6 @@ DataProcess(x, y, gridsize, -100, groups);
 var data = [
 {
 z: z_count,
-colorscale: 'Electric',
      type: 'heatmap'
 }
 ];
@@ -155,6 +156,58 @@ function DataProcess(x, y, gridsize, lowbound, groupsnum){
   console.log(recordCount[id]);
 }
 
+var closeValid = [1, 2, 5, 6, 8, 15];
+var farValid = [0, 1, 2, 3, 4, 6, 8, 10, 12];
+
+function ValidPlotCheck() {
+  var totalPercentile = [];
+  console.log(dis);
+  var lst = dis == 61? closeValid: farValid;
+  console.log(lst);
+  for(var i = 0;i < groups;i++) totalPercentile.push([]);
+  for(var i = 0;i < groups;i++)
+    for(var j = 0;j < groups;j++) totalPercentile[i].push(0);
+  var tmp = 0;
+  for(var i = 0;i < groups;i++)
+    for(var j = 0;j < groups;j++) {
+      for(var k = 0;k < lst.length;k++) 
+        totalPercentile[i][j] += recordCount[lst[k]][i][j];
+      totalPercentile[i][j] /= lst.length;
+      tmp += totalPercentile[i][j];
+    }
+var data = [
+{
+z: totalPercentile,
+colorscale: 'Electric',
+     type: 'heatmap'
+}
+];
+var layout = {
+showlegend: false,
+            autosize: false,
+            width: 600,
+            height: 600,
+            margin: {t: 50},
+            hovermode: 'closest',
+            bargap: 0,
+            images: [{
+              "source": "./face.png",
+              "xref": "x",
+              "yref": "y",
+              "x": face_position_x,
+              "y": face_position_y,
+              "sizex": 25/gridsize,
+              "sizey": 25/gridsize,
+              "sizing": "strech",
+              "xanchor": "center",
+              "yanchor": "middle",
+              "layer": "above",
+              "opacity": 0.6
+            }]
+};
+Plotly.newPlot('validplot', data, layout);
+}
+
 function OverallPlotCheck() {
   var totalPercentile = [];
   console.log(recordCount);
@@ -165,16 +218,11 @@ function OverallPlotCheck() {
   var tmp = 0;
   for(var i = 0;i < groups;i++)
     for(var j = 0;j < groups;j++) {
-      for(var k = 0;k <= 16;k++) {
-        if(typeof recordCount[k][i][j] !== "number")
-          console.log("fail");
+      for(var k = 0;k <= 16;k++) 
         totalPercentile[i][j] += recordCount[k][i][j];
-      }
       totalPercentile[i][j] /= 17;
       tmp += totalPercentile[i][j];
     }
-  console.log(totalPercentile);
-  console.log(tmp);
 var data = [
 {
 z: totalPercentile,
