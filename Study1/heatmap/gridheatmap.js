@@ -223,6 +223,13 @@ function OverallPlotCheck() {
       totalPercentile[i][j] /= 17;
       tmp += totalPercentile[i][j];
     }
+for(var x = 0; face_position_x + x < groups && face_position_x - x >= 0;x++)
+  for(var j = 0;j < groups;j++) {
+    var l = face_position_x - x, r = face_position_x + x;
+    var v = (totalPercentile[j][l] + totalPercentile[j][r]) / 2.0;
+    totalPercentile[j][l] = v;
+    totalPercentile[j][r] = v;
+  }
 var data = [
 {
 z: totalPercentile,
@@ -253,5 +260,32 @@ showlegend: false,
               "opacity": 0.6
             }]
 };
+
 Plotly.newPlot('allplot', data, layout);
+var sortLst = [];
+for(var i = 0;i < groups;i++)
+  for(var j = 0;j < groups;j++) {
+    sortLst.push({id: [i, j], v: totalPercentile[i][j]});
+  }
+sortLst.sort(function(a, b) {
+  return b.v - a.v;
+});
+console.log(sortLst);
+var t = 0;
+var chk = [true, true, true];
+for(var i = 0;i < sortLst.length;i++) {
+  t += sortLst[i].v;
+  if(t >= 66.7 && chk[0]) {
+    console.log(66.7, i);
+    chk[0] = false;
+  }
+  if(t >= 80 && chk[1]) {
+    console.log(80, i);
+    chk[1] = false;
+  }
+  if(t >= 95 && chk[2]) {
+    console.log(95, i);
+    chk[2] = false;
+  }
+}
 }
