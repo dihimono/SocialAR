@@ -1,3 +1,32 @@
+.parent {
+  display: flex;
+  align-items: center;
+}
+
 .video-react-control-bar {
   display: none;
+}
+
+.video-player-wrapper {
+  float: left;
+  width: 60%;
+}
+
+.form {
+  float: left;
+  width: 30%;
+}
+
+.groupOptions {
+  float: left;
+}
+
+.button {
+  margin: 10px 50px 30px 0;
+}
+
+.square {
+  position: absolute;
+  background-color: orange;
+  opacity: 0.4;
 }

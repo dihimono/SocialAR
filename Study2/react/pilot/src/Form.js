@@ -1,0 +1,29 @@
+import React, { Component } from 'react';
+import { Radio, Button} from 'react-bootstrap';
+
+class Form extends Component {
+    handleClick(e) {
+        e.preventDefault();
+        console.log('The link was clicked.');
+    }
+
+    render() {
+        return (
+            <div className="form">
+                <div name="explanation">
+                    [Explanation Text:]    
+                </div>    
+                <Radio name="groupOptions"> 1</Radio>
+                <Radio name="groupOptions"> 2</Radio>
+                <Radio name="groupOptions"> 3</Radio>
+                <Radio name="groupOptions"> 4</Radio>
+                <Radio name="groupOptions"> 5</Radio>
+                <Button name="button"> Submit</Button>
+                <Button name="button"> Back</Button>
+            </div>
+        );
+    }
+
+}
+
+export default Form;
