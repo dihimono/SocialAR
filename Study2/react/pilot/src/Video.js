@@ -7,7 +7,8 @@ import FarSquare from './FarSquare.js';
 class Video extends Component {
     render() {
         const {
-            page
+            page,
+            counterbalance
         } = this.props;
 
         const videoList = [
@@ -54,21 +55,99 @@ class Video extends Component {
             "https://drive.google.com/file/d/1dG44DOE0QNq_XfRWC7eU2pPNWp-8ZX5C/preview",
             "https://drive.google.com/file/d/1AgDrjYUyriQai4MS8hw4ZIn3Y58iNs4Q/preview"
         ] 
-        console.log('page ' + page);
-        console.log('videolist ' + videoList[page]);
-        
+
+        const closeList = [
+            {left:332, right:-14},
+            {left:403, right:-14},
+            {left:474, right:-14},
+            {left:261, right:57},
+            {left:332, right:57},
+            {left:403, right:57},
+            {left:474, right:57},
+            {left:545, right:57},
+            {left:261, right:128},
+            {left:332, right:128},
+            {left:403, right:128},
+            {left:474, right:128},
+            {left:545, right:128},
+            {left:261, right:199},
+            {left:332, right:199},
+            {left:403, right:199},
+            {left:474, right:199},
+            {left:545, right:199},
+            {left:332, right:270},
+            {left:403, right:270},
+            {left:474, right:270}
+        ]
+
+        const farList = [
+            {left: 192, right: 3},
+            {left: 291, right: 3},
+            {left: 489, right: 3},
+            {left: 588, right: 3},
+            {left: 192, right: 102},
+            {left: 291, right: 102},
+            {left: 390, right: 102},
+            {left: 489, right: 102},
+            {left: 588, right: 102},
+            {left: 192, right: 201},
+            {left: 291, right: 201},
+            {left: 390, right: 201},
+            {left: 489, right: 201},
+            {left: 588, right: 201},
+            {left: 192, right: 300},
+            {left: 291, right: 300},
+            {left: 390, right: 300},
+            {left: 489, right: 300},
+            {left: 588, right: 300},
+            {left: 291, right: 399},
+            {left: 390, right: 399}
+        ]
+
+        const counterbalanceList = [
+            [1, 2, 21, 3, 20, 4, 19, 5, 18, 6, 17, 7, 16, 8, 15, 9, 14, 10, 13, 11, 12],
+            [2, 3, 1, 4, 21, 5, 20, 6, 19, 7, 18, 8, 17, 9, 16, 10, 15, 11, 14, 12, 13],
+            [3, 4, 2, 5, 1, 6, 21, 7, 20, 8, 19, 9, 18, 10, 17, 11, 16, 12, 15, 13, 14],
+            [4, 5, 3, 6, 2, 7, 1, 8, 21, 9, 20, 10, 19, 11, 18, 12, 17, 13, 16, 14, 15],
+            [5, 6, 4, 7, 3, 8, 2, 9, 1, 10, 21, 11, 20, 12, 19, 13, 18, 14, 17, 15, 16],
+            [6, 7, 5, 8, 4, 9, 3, 10, 2, 11, 1, 12, 21, 13, 20, 14, 19, 15, 18, 16, 17],
+            [7, 8, 6, 9, 5, 10, 4, 11, 3, 12, 2, 13, 1, 14, 21, 15, 20, 16, 19, 17, 18],
+            [8, 9, 7, 10, 6, 11, 5, 12, 4, 13, 3, 14, 2, 15, 1, 16, 21, 17, 20, 18, 19],
+            [9, 10, 8, 11, 7, 12, 6, 13, 5, 14, 4, 15, 3, 16, 2, 17, 1, 18, 21, 19, 20],
+            [10, 11, 9, 12, 8, 13, 7, 14, 6, 15, 5, 16, 4, 17, 3, 18, 2, 19, 1, 20, 21],
+            [11, 12, 10, 13, 9, 14, 8, 15, 7, 16, 6, 17, 5, 18, 4, 19, 3, 20, 2, 21, 1],
+            [12, 13, 11, 14, 10, 15, 9, 16, 8, 17, 7, 18, 6, 19, 5, 20, 4, 21, 3, 1, 2],
+            [13, 14, 12, 15, 11, 16, 20, 17, 9, 18, 8, 19, 7, 20, 6, 21, 5, 1, 4, 2, 3],
+            [14, 15, 13, 16, 12, 17, 21, 18, 10, 19, 9, 20, 8, 21, 7, 1, 6, 2, 5, 3, 4],
+            [15, 16, 14, 17, 13, 18, 1, 19, 11, 20, 10, 21, 9, 1, 8, 2, 7, 3, 6, 4, 5],
+            [16, 17, 15, 18, 14, 19, 2, 20, 12, 21, 11, 1, 10, 2, 9, 3, 8, 4, 7, 5, 6],
+            [17, 18, 16, 19, 15, 20, 3, 21, 13, 1, 12, 2, 11, 3, 10, 4, 9, 5, 8, 6, 7],
+            [18, 19, 17, 20, 16, 21, 4, 1, 14, 2, 13, 3, 12, 4, 11, 5, 10, 6, 9, 7, 8],
+            [19, 20, 18, 21, 17, 1, 5, 2, 15, 3, 14, 4, 13, 5, 12, 6, 11, 7, 10, 8, 9],
+            [20, 21, 19, 1, 18, 2, 6, 3, 16, 4, 15, 5, 14, 6, 13, 7, 12, 8, 11, 9, 10],
+            [21, 1, 20, 2, 19, 3, 7, 4, 17, 5, 16, 6, 15, 7, 14, 8, 13, 9, 12, 10, 11]
+        ]
+ 
+        var posList = counterbalanceList[this.props.counterbalance]
+        console.log('============= this.counterbalance', this.props.counterbalance);
+        console.log("pos: " + posList[this.props.page - 1])
         return (
             
             <div className="video-player-wrapper">  
+                <iframe src={videoList[this.props.page - 1]} width="840" height="480" className="video-player"></iframe>
                 {(() => {
-                    switch (page) {
+                    if (page <= 21) {
+                        return (
+                            <div>
 
+                            </div>
+                        )
                     }
                 })}
                 
-                <iframe src={videoList[this.props.page - 1]} width="840" height="480" className="video-player"></iframe>
-                <CloseSquare left="261px" top="341px" />
-                <FarSquare left="119px" top="483" />
+                
+                <CloseSquare left={closeList[posList[this.props.page - 1] - 1]["left"]} top={closeList[posList[this.props.page - 1] - 1]["right"]} />
+                <FarSquare left={farList[posList[this.props.page - 1] - 1]["left"]} top={farList[posList[this.props.page - 1] - 1]["right"]} />
             </div>
         );
     }
