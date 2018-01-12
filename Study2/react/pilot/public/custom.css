@@ -9,7 +9,8 @@
 
 .video-player-wrapper {
   float: left;
-  width: 60%;
+  width: 840px;
+  height: 480px;
 }
 
 .form {
@@ -21,12 +22,16 @@
   float: left;
 }
 
-.button {
-  margin: 10px 50px 30px 0;
+.submit-button {
+  margin-right: 10px;
 }
 
 .square {
   position: absolute;
   background-color: orange;
   opacity: 0.4;
+}
+
+.App-intro {
+  margin-top: 25px;
 }

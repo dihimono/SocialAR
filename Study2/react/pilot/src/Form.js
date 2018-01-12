@@ -8,6 +8,10 @@ class Form extends Component {
     }
 
     render() {
+        const {
+            myclickNext
+        } = this.props;
+
         return (
             <div className="form">
                 <div name="explanation">
@@ -18,8 +22,8 @@ class Form extends Component {
                 <Radio name="groupOptions"> 3</Radio>
                 <Radio name="groupOptions"> 4</Radio>
                 <Radio name="groupOptions"> 5</Radio>
-                <Button name="button"> Submit</Button>
-                <Button name="button"> Back</Button>
+                <Button bsClass="submit-button" onClick={myclickNext}> Submit</Button>
+                <Button bsClass="submit-button" > Back</Button>
             </div>
         );
     }
