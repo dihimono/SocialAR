@@ -30,9 +30,15 @@
   margin-right: 10px;
 }
 
-.square {
+.close-square {
   position: absolute;
   background-color: orange;
+  opacity: 0.4;
+}
+
+.far-square {
+  position: absolute;
+  background-color: purple;
   opacity: 0.4;
 }
 

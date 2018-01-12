@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 
-class Square extends Component {
+class CloseSquare extends Component {
     
     render() {
         const {
             width = '71px',
             height = '71px',
-            left = '20px',
-            top = '50px'
+            left,
+            top
         } = this.props;
 
         const style = { width, height, left, top };
 
         return (
-            <div className="square" style={style} />
+            <div className="close-square" style={style} />
         );
     }
 }
 
-export default Square;
+export default CloseSquare;
