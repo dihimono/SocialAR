@@ -8,7 +8,7 @@ class Video extends Component {
         
         return (
             <div className="video-player-wrapper">  
-                <iframe src="https://drive.google.com/file/d/1KG3BteC6WIjy86EW8ENG-yTJ5ZmVtj6S/preview" width="840" height="480"></iframe>
+                <iframe src="https://drive.google.com/file/d/1KG3BteC6WIjy86EW8ENG-yTJ5ZmVtj6S/preview" width="840" height="480" className="video-player"></iframe>
                 <Square width="100px" height="50px" left="300px" top="350px" />
             </div>
         );

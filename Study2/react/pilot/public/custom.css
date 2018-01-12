@@ -11,6 +11,7 @@
   float: left;
   width: 840px;
   height: 480px;
+  position: relative;
 }
 
 .form {
@@ -34,4 +35,14 @@
 
 .App-intro {
   margin-top: 25px;
+}
+
+.video-player {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;gi
 }
