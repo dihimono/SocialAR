@@ -4,8 +4,8 @@ class Square extends Component {
     
     render() {
         const {
-            width = '200px',
-            height = '100px',
+            width = '71px',
+            height = '71px',
             left = '20px',
             top = '50px'
         } = this.props;

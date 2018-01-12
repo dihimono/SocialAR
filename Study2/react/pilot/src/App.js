@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import Video from "./Video.js";
-import Form from "./Form.js";
+import Forms from "./Forms.js";
 
 class App extends Component {
     constructor() {
         super();
         this.clickNext = this.clickNext.bind(this);
-
+        this.clickBack = this.clickBack.bind(this);
         this.state = {
             page: 1
         };  
@@ -16,6 +16,13 @@ class App extends Component {
         console.log('====== clickNext');
         this.setState({
             page: this.state.page + 1
+        })
+    }
+
+    clickBack() {
+        console.log('===== clickBack');
+        this.setState({
+            page: this.state.page == 1 ? 1 : this.state.page - 1
         })
     }
     
@@ -28,7 +35,7 @@ class App extends Component {
                 </p>
                 <div className="parent">  
                     <Video />
-                    <Form myclickNext={this.clickNext} page={this.state.page} />    
+                    <Forms myclickNext={this.clickNext} myclickBack={this.clickBack} page={this.state.page} />    
                 </div>  
                 
             </div>

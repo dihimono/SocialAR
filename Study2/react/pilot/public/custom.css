@@ -1,6 +1,8 @@
 .parent {
   display: flex;
   align-items: center;
+  margin-left: 3%;
+  margin-top: 5%;
 }
 
 .video-react-control-bar {
@@ -17,6 +19,7 @@
 .form {
   float: left;
   width: 30%;
+  margin-left: 3%;
 }
 
 .groupOptions {
@@ -34,7 +37,7 @@
 }
 
 .App-intro {
-  margin-top: 25px;
+  margin-top: 5%;
 }
 
 .video-player {
@@ -44,5 +47,9 @@
   left: 0;
   top: 0;
   right: 0;
-  bottom: 0;gi
+  bottom: 0;
+}
+
+.button-group {
+  margin-top: 20px;
 }
