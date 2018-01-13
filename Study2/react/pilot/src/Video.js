@@ -8,7 +8,8 @@ class Video extends Component {
     render() {
         const {
             page,
-            counterbalance
+            counterbalance,
+            closeFirst
         } = this.props;
 
         const videoList = [
@@ -131,23 +132,34 @@ class Video extends Component {
         var posList = counterbalanceList[this.props.counterbalance]
         console.log('============= this.counterbalance', this.props.counterbalance);
         console.log("pos: " + posList[this.props.page - 1])
+        console.log('============= this.closeFirst' + this.props.closeFirst )
+        console.log('============= ', this.props.closeFirst == 1)
+        
+        let square = null;
+        if (page <= 21) {
+            console.log("In page <= 21")
+            if ( this.props.closeFirst == 1) {
+                console.log("====== 1")
+                square = <CloseSquare left={closeList[posList[this.props.page - 1] - 1]["left"]} top={closeList[posList[this.props.page - 1] - 1]["right"]} />
+            }
+            if ( this.props.closeFirst == 0) {
+                console.log("====== 2")
+                square = <FarSquare left={farList[posList[this.props.page - 1] - 1]["left"]} top={farList[posList[this.props.page - 1] - 1]["right"]} />                        
+            }
+        } else {
+            if ( this.props.closeFirst == 0) {
+                console.log("====== 3")
+                square = <CloseSquare left={closeList[posList[this.props.page - 22] - 1]["left"]} top={closeList[posList[this.props.page - 22] - 1]["right"]} />
+            } else {
+                console.log("====== 4") 
+                square = <FarSquare left={farList[posList[this.props.page - 22] - 1]["left"]} top={farList[posList[this.props.page - 22] - 1]["right"]} />                        
+            }
+        }
+
         return (
-            
             <div className="video-player-wrapper">  
                 <iframe src={videoList[this.props.page - 1]} width="840" height="480" className="video-player"></iframe>
-                {(() => {
-                    if (page <= 21) {
-                        return (
-                            <div>
-
-                            </div>
-                        )
-                    }
-                })}
-                
-                
-                <CloseSquare left={closeList[posList[this.props.page - 1] - 1]["left"]} top={closeList[posList[this.props.page - 1] - 1]["right"]} />
-                <FarSquare left={farList[posList[this.props.page - 1] - 1]["left"]} top={farList[posList[this.props.page - 1] - 1]["right"]} />
+                {square}
             </div>
         );
     }
