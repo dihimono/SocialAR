@@ -131,34 +131,51 @@ class Video extends Component {
  
         var posList = counterbalanceList[this.props.counterbalance]
         console.log('============= this.counterbalance', this.props.counterbalance);
-        console.log("pos: " + posList[this.props.page - 1])
+        console.log("pos: " + posList)
         console.log('============= this.closeFirst' + this.props.closeFirst )
         console.log('============= ', this.props.closeFirst == 1)
         
         let square = null;
-        if (page <= 21) {
-            console.log("In page <= 21")
+        let posId = null;
+        let video = null;
+        let vidId = null;
+        
+        if ( page == 1 || page == 23 || page == 45 ) {
+            
+        } else if ( page <= 22 ) {
+            vidId = this.props.page - 2    
+            video = <iframe src={videoList[vidId]} width="840" height="480" className="video-player"></iframe>
+            
+            posId = posList[this.props.page - 2] - 1
             if ( this.props.closeFirst == 1) {
                 console.log("====== 1")
-                square = <CloseSquare left={closeList[posList[this.props.page - 1] - 1]["left"]} top={closeList[posList[this.props.page - 1] - 1]["right"]} />
+                square = <CloseSquare left={closeList[posId]["left"]} top={closeList[posId]["right"]} />
             }
             if ( this.props.closeFirst == 0) {
                 console.log("====== 2")
-                square = <FarSquare left={farList[posList[this.props.page - 1] - 1]["left"]} top={farList[posList[this.props.page - 1] - 1]["right"]} />                        
+                square = <FarSquare left={farList[posId]["left"]} top={farList[posId]["right"]} />                        
             }
         } else {
+            vidId = this.props.page - 24 
+            video = <iframe src={videoList[vidId]} width="840" height="480" className="video-player"></iframe>
+            
+            posId = posList[this.props.page - 24] - 1
             if ( this.props.closeFirst == 0) {
                 console.log("====== 3")
-                square = <CloseSquare left={closeList[posList[this.props.page - 22] - 1]["left"]} top={closeList[posList[this.props.page - 22] - 1]["right"]} />
+                square = <CloseSquare left={closeList[posId]["left"]} top={closeList[posId]["right"]} />
             } else {
                 console.log("====== 4") 
-                square = <FarSquare left={farList[posList[this.props.page - 22] - 1]["left"]} top={farList[posList[this.props.page - 22] - 1]["right"]} />                        
+                square = <FarSquare left={farList[posId]["left"]} top={farList[posId]["right"]} />                        
             }
         }
+        console.log("====== pos", posId)
+        console.log("====== vidId ", vidId)
+        
 
         return (
             <div className="video-player-wrapper">  
-                <iframe src={videoList[this.props.page - 1]} width="840" height="480" className="video-player"></iframe>
+                
+                {video}
                 {square}
             </div>
         );

@@ -26,13 +26,13 @@ class Forms extends Component {
                                 </div>
                             )
                             break;
-                        case 3:
+                        case 23:
                             return (
                                 <div>
                                     恭喜你已經完成本問卷的一半。你可以稍作休息，再按下 Submit 以後我們將進行第二部分的評分。
                                 </div>
                             )
-                        case 5:
+                        case 45:
                             return (
                                 <div>
                                     <div>
@@ -60,11 +60,11 @@ class Forms extends Component {
                                     <div>
                                         請依照自己在這個方框內閱讀文字的意願喜好程度來進行評分，一分為最不願意，五分為最願意    
                                     </div>   
-                                    <Radio name="groupOptions"> 1</Radio>
-                                    <Radio name="groupOptions"> 2</Radio>
-                                    <Radio name="groupOptions"> 3</Radio>
-                                    <Radio name="groupOptions"> 4</Radio>
                                     <Radio name="groupOptions"> 5</Radio>
+                                    <Radio name="groupOptions"> 4</Radio>
+                                    <Radio name="groupOptions"> 3</Radio>
+                                    <Radio name="groupOptions"> 2</Radio>
+                                    <Radio name="groupOptions"> 1</Radio>
                                 </div>
                             )
                             null
