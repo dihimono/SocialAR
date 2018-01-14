@@ -1,0 +1,65 @@
+.parent {
+  display: flex;
+  align-items: center;
+  margin-left: 3%;
+  margin-top: 5%;
+}
+
+.video-react-control-bar {
+  display: none;
+}
+
+.video-player-wrapper {
+  float: left;
+  width: 840px;
+  height: 480px;
+  position: relative;
+}
+
+.form {
+  float: left;
+  width: 30%;
+  margin-left: 3%;
+}
+
+.groupOptions {
+  float: left;
+}
+
+.submit-button {
+  margin-right: 10px;
+}
+
+.close-square {
+  position: absolute;
+  background-color: orange;
+  opacity: 0.4;
+}
+
+.far-square {
+  position: absolute;
+  background-color: purple;
+  opacity: 0.4;
+}
+
+.App-intro {
+  margin-top: 5%;
+}
+
+.video-player {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.button-group {
+  margin-top: 20px;
+}
+
+._radio {
+  width: 20px;
+}
