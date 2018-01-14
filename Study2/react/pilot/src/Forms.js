@@ -14,31 +14,19 @@ class Forms extends Component {
     }
     
     myclickRadio(no) {
-        console.log('====== clickRadio ', no);
+        // console.log('====== clickRadio ', no);
         this.setState({
             radio: no
         })
         
     }
-
-    // componentDidMount() {
-    //     this.inputNode.value;
-    // }
-    
-    // handleSubmit(e) {
-    //     e.preventDefault()
-    //     var form = e.target
-    //     var myTextInput = form.elements.myTextInput.value
-    //     var myRadioInput = form.elements.myRadioInput.value
-    //     // ...
-    // }
-
+   
     render() {
         const {
             myclickNext,
             myclickBack,
             page,
-            radio = 1
+            radio = 0
         } = this.props;
 
         return (
@@ -87,18 +75,23 @@ class Forms extends Component {
                                     <div>
                                         請依照自己在這個方框內閱讀文字的意願喜好程度來進行評分，一分為最不願意，五分為最願意    
                                     </div>   
-                                    <Radio name="groupOptions" onClick={() => this.myclickRadio(5)}> 5</Radio>
-                                    <Radio name="groupOptions" onClick={() => this.myclickRadio(4)}> 4</Radio>
-                                    <Radio name="groupOptions" onClick={() => this.myclickRadio(3)}> 3</Radio>
-                                    <Radio name="groupOptions" onClick={() => this.myclickRadio(2)}> 2</Radio>
-                                    <Radio name="groupOptions" onClick={() => this.myclickRadio(1)}> 1</Radio>
+                                    <input type="radio" className="_radio" name="groupOptions" onClick={() => this.myclickRadio(5)}/> 5
+                                    <input type="radio" className="_radio" name="groupOptions" onClick={() => this.myclickRadio(4)}/> 4
+                                    <input type="radio" className="_radio" name="groupOptions" onClick={() => this.myclickRadio(3)}/> 3
+                                    <input type="radio" className="_radio" name="groupOptions" onClick={() => this.myclickRadio(2)}/> 2
+                                    <input type="radio" className="_radio" name="groupOptions" onClick={() => this.myclickRadio(1)}/> 1
                                 </div>
                             )
                             null
                     }
                 })()}
                 <div className="button-group">
-                    <Button bsClass="submit-button" onClick={() => myclickNext((page == 1 || page ==23 || page == 45) ? 1 : this.state.radio)}> Submit</Button>
+                    <Button bsClass="submit-button" onClick={() => {
+                        myclickNext((page == 1 || page ==23 || page == 45) ? 6 : this.state.radio);
+                        this.setState({
+                            radio: 0
+                        });
+                    }}> Submit</Button>
                     <Button bsClass="submit-button" onClick={myclickBack}> Back</Button>
                 </div>
             </div>

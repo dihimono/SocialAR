@@ -15,18 +15,24 @@ class App extends Component {
         this.closeFirst = Math.floor(Math.random() * 2);
     }
 
+     clearRadioBtn() {
+        console.log("====== clear");
+        let radios = document.querySelectorAll('._radio');
+        radios.forEach(el => {
+            el.checked = false;
+        })
+    }
+
     clickNext(radio) {
-        console.log('====== clickNext');
         if ( radio > 0) {
             this.setState({
                 page: this.state.page + 1,
             })
-            if ( this.state.page != 1 && this.state.page != 23 && this.state.page != 45)
+            if ( radio < 6 )
             this.setState({
                 myList: this.state.myList.concat([radio])
             })
-
-
+            this.clearRadioBtn();
             console.log('====== click ', radio)
         } else {
             alert("Please choose one preference")
@@ -34,18 +40,18 @@ class App extends Component {
     }
 
     clickBack() {
-        console.log('===== clickBack');
         this.setState({
             page: this.state.page == 1 ? 1 : this.state.page - 1
         })
+        this.clearRadioBtn();
     }
 
     
     render() {
         console.log('======== myList, ', this.state.myList)
-        console.log('============= closeFirst', this.closeFirst)
+        // console.log('============= closeFirst', this.closeFirst)
         console.log('============= this.state.page', this.state.page);
-        console.log('============= random', this.counterbalance)
+        // console.log('============= random', this.counterbalance)
         return (
             <div className="App">
                 <p className="App-intro">

@@ -130,10 +130,10 @@ class Video extends Component {
         ]
  
         var posList = counterbalanceList[this.props.counterbalance]
-        console.log('============= this.counterbalance', this.props.counterbalance);
-        console.log("pos: " + posList)
-        console.log('============= this.closeFirst' + this.props.closeFirst )
-        console.log('============= ', this.props.closeFirst == 1)
+        // console.log('============= this.counterbalance', this.props.counterbalance);
+        // console.log("pos: " + posList)
+        // console.log('============= this.closeFirst' + this.props.closeFirst )
+        // console.log('============= ', this.props.closeFirst == 1)
         
         let square = null;
         let posId = null;
@@ -168,8 +168,8 @@ class Video extends Component {
                 square = <FarSquare left={farList[posId]["left"]} top={farList[posId]["right"]} />                        
             }
         }
-        console.log("====== pos", posId)
-        console.log("====== vidId ", vidId)
+        // console.log("====== pos", posId)
+        // console.log("====== vidId ", vidId)
         
 
         return (
