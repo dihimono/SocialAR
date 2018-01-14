@@ -5,8 +5,10 @@ class Forms extends Component {
     constructor() {
         super();
         this.state = {
-            radio: 0
+            radio: 0,
+            address: "s"
         };
+        
     }
     
     myclickRadio(no) {
@@ -15,14 +17,24 @@ class Forms extends Component {
         });
         
     }
+
+    handleChange(e) {
+        this.setState({
+            address: e
+        });
+    }
    
     render() {
         const {
             myclickNext,
             myclickBack,
-            page
+            page,
+            myWriteAddress
         } = this.props;
 
+        //let forms =  document.querySelectorAll("addr");
+        //var nameValue = .value;
+        console.log("====nameValue ", this.state.radio);
         return (
             <div className="form">
                 {(() => {
@@ -47,9 +59,12 @@ class Forms extends Component {
                                         恭喜你已完成全部的問卷內容。為了實驗統計目的以及抽獎的需求，請幫我們填寫以下的一些基本資料。這些資料並不會使用在除抽獎以及實驗外的其他目的。非常感謝你的協助。
                                 </div>
                                 <Form>
-                                    <FormGroup controlId="formInlineName">
+                                    <FormGroup controlId="formInlineName" >
                                         <ControlLabel>電子信箱</ControlLabel>{" "}
-                                        <FormControl type="text" placeholder="aaa@gmail.com" />
+                                        <FormControl type="text" className="addr" value={this.state.address} placeholder="aaa@gmail.com" onChange={() => {
+                                            myWriteAddress(this.state.address);
+                                            this.handleChange();
+                                        }} />
                                     </FormGroup>{" "}
                                     <FormGroup controlId="formInlineName">
                                         <ControlLabel>年齡</ControlLabel>{" "}

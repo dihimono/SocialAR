@@ -2,18 +2,30 @@ import React, { Component } from "react";
 import Video from "./Video.js";
 import Forms from "./Forms.js";
 import counterbalanceList from "./configs/counterbalanceList";
+import entryList from "./configs/entry.js";
 
 class App extends Component {
     constructor() {
         super();
         this.clickNext = this.clickNext.bind(this);
         this.clickBack = this.clickBack.bind(this);
+        this.writeAddress = this.writeAddress.bind(this);
         this.state = {
-            page: 1,
+            page: 45,
             myList: [],
-            posList: counterbalanceList[Math.floor(Math.random() * 21)]
+            posList: counterbalanceList[Math.floor(Math.random() * 21)],
+            address: "s"
         };  
         this.closeFirst = Math.floor(Math.random() * 2);
+        this.closeAnsList = [];
+        this.farAnsList = [];
+    }
+
+    writeAddress(myAddress) {
+        console.log("====myAddress,", myAddress);
+        this.setState({
+            address: myAddress
+        });
     }
 
     clearRadioBtn() {
@@ -48,7 +60,30 @@ class App extends Component {
     }
 
     upload() {
-        //var linkPrefix = "https://docs.google.com/forms/d/e/1FAIpQLScnuHpPHp8qHAMd2L47XApTKX4TS7m7gPZY-G49EUR4NH9FCQ/formResponse?";
+        var link = "https://docs.google.com/forms/d/e/1FAIpQLScnuHpPHp8qHAMd2L47XApTKX4TS7m7gPZY-G49EUR4NH9FCQ/formResponse?";
+        let firstAnsList = [];
+        let secondAnsList = [];
+        var arrayLength = this.state.posList.length;
+        for(var i = 0; i < arrayLength; i++) {
+            firstAnsList.push(0);
+            secondAnsList.push(0);
+        }
+
+        for (var i = 0; i < arrayLength; i++) {
+            firstAnsList[this.state.posList[i] - 1] = this.state.myList[i];
+            secondAnsList[this.state.posList[i] - 1] = this.state.myList[i + 21];
+        }
+        
+        let closeAnsList = this.closeFirst ? firstAnsList : secondAnsList;
+        let farAnsList = this.closeFirst ? secondAnsList : firstAnsList;
+
+        for (var i = 0; i < arrayLength; i++) {
+            var closeResponse = entryList[i] + "=" + closeAnsList[i] + "&";
+            var farResponse = entryList[i + 21] + "=" + farAnsList[i] + "$";
+            link = link.concat(closeResponse);
+            link = link.concat(farResponse);
+        }
+        
     }
     
     render() {
@@ -64,7 +99,7 @@ class App extends Component {
             content = 
                 <div className="parent">  
                     <Video page={this.state.page} posList={this.state.posList} closeFirst={this.closeFirst} />
-                    <Forms myclickNext={this.clickNext} myclickBack={this.clickBack} page={this.state.page} />    
+                    <Forms myclickNext={this.clickNext} myclickBack={this.clickBack} page={this.state.page} myWriteAddress={this.writeAddress}/>    
                 </div>; 
         }
 
