@@ -4,13 +4,30 @@ import { Radio, Button, Form, FormGroup, ControlLabel, FormControl } from 'react
 class Forms extends Component {
     handleClick(e) {
         e.preventDefault();
-        console.log('The link was clicked.');
+        console.log('Radio was clicked.');
     }
+    handleOptionChange(changeEvent) {
+        this.setState({
+            selectedOption: changeEvent.target.value
+        });
+    }
+    // componentDidMount() {
+    //     this.inputNode.value;
+    // }
+    
+    // handleSubmit(e) {
+    //     e.preventDefault()
+    //     var form = e.target
+    //     var myTextInput = form.elements.myTextInput.value
+    //     var myRadioInput = form.elements.myRadioInput.value
+    //     // ...
+    // }
 
     render() {
         const {
             myclickNext,
             myclickBack,
+            myclickRadio,
             page
         } = this.props;
 
@@ -60,18 +77,18 @@ class Forms extends Component {
                                     <div>
                                         請依照自己在這個方框內閱讀文字的意願喜好程度來進行評分，一分為最不願意，五分為最願意    
                                     </div>   
-                                    <Radio name="groupOptions"> 5</Radio>
-                                    <Radio name="groupOptions"> 4</Radio>
-                                    <Radio name="groupOptions"> 3</Radio>
-                                    <Radio name="groupOptions"> 2</Radio>
-                                    <Radio name="groupOptions"> 1</Radio>
+                                    <Radio name="groupOptions" onClick={this.handleClick}> 5</Radio>
+                                    <Radio name="groupOptions" onClick={myclickRadio(4)}> 4</Radio>
+                                    <Radio name="groupOptions" onClick={myclickRadio(3)}> 3</Radio>
+                                    <Radio name="groupOptions" onClick={myclickRadio(2)}> 2</Radio>
+                                    <Radio name="groupOptions" onChange={this.handleClick}> 1</Radio>
                                 </div>
                             )
                             null
                     }
                 })()}
                 <div className="button-group">
-                    <Button bsClass="submit-button" onClick={myclickNext}> Submit</Button>
+                    <Button bsClass="submit-button" onClick={myclickNext} active> Submit</Button>
                     <Button bsClass="submit-button" onClick={myclickBack}> Back</Button>
                 </div>
             </div>

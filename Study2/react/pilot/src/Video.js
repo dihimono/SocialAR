@@ -156,7 +156,7 @@ class Video extends Component {
                 square = <FarSquare left={farList[posId]["left"]} top={farList[posId]["right"]} />                        
             }
         } else {
-            vidId = this.props.page - 24 
+            vidId = this.props.page - 3
             video = <iframe src={videoList[vidId]} width="840" height="480" className="video-player"></iframe>
             
             posId = posList[this.props.page - 24] - 1

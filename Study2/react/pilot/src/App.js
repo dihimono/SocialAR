@@ -7,11 +7,16 @@ class App extends Component {
         super();
         this.clickNext = this.clickNext.bind(this);
         this.clickBack = this.clickBack.bind(this);
+        this.clickRadio = this.clickRadio.bind(this);
         this.state = {
             page: 1
         };  
         this.counterbalance = Math.floor(Math.random() * 21);
         this.closeFirst = Math.floor(Math.random() * 2);
+    }
+
+    clickRadio(no) {
+        console.log('====== clickRadio ', no);
     }
 
     clickNext() {
@@ -39,7 +44,7 @@ class App extends Component {
                 </p>
                 <div className="parent">  
                     <Video page={this.state.page} counterbalance={this.counterbalance} closeFirst={this.closeFirst}/>
-                    <Forms myclickNext={this.clickNext} myclickBack={this.clickBack} page={this.state.page} />    
+                    <Forms myclickNext={this.clickNext} myclickBack={this.clickBack} page={this.state.page} myclickRadio={this.clickRadio} />    
                 </div>  
                 
             </div>
