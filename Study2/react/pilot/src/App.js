@@ -7,23 +7,30 @@ class App extends Component {
         super();
         this.clickNext = this.clickNext.bind(this);
         this.clickBack = this.clickBack.bind(this);
-        this.clickRadio = this.clickRadio.bind(this);
         this.state = {
-            page: 1
+            page: 1,
+            myList: []
         };  
         this.counterbalance = Math.floor(Math.random() * 21);
         this.closeFirst = Math.floor(Math.random() * 2);
     }
 
-    clickRadio(no) {
-        console.log('====== clickRadio ', no);
-    }
-
-    clickNext() {
+    clickNext(radio) {
         console.log('====== clickNext');
-        this.setState({
-            page: this.state.page + 1
-        })
+        if ( radio > 0) {
+            this.setState({
+                page: this.state.page + 1,
+            })
+            if ( this.state.page != 1 && this.state.page != 23 && this.state.page != 45)
+            this.setState({
+                myList: this.state.myList.concat([radio])
+            })
+
+
+            console.log('====== click ', radio)
+        } else {
+            alert("Please choose one preference")
+        }
     }
 
     clickBack() {
@@ -33,7 +40,9 @@ class App extends Component {
         })
     }
 
+    
     render() {
+        console.log('======== myList, ', this.state.myList)
         console.log('============= closeFirst', this.closeFirst)
         console.log('============= this.state.page', this.state.page);
         console.log('============= random', this.counterbalance)
@@ -44,7 +53,7 @@ class App extends Component {
                 </p>
                 <div className="parent">  
                     <Video page={this.state.page} counterbalance={this.counterbalance} closeFirst={this.closeFirst}/>
-                    <Forms myclickNext={this.clickNext} myclickBack={this.clickBack} page={this.state.page} myclickRadio={this.clickRadio} />    
+                    <Forms myclickNext={this.clickNext} myclickBack={this.clickBack} page={this.state.page} />    
                 </div>  
                 
             </div>
