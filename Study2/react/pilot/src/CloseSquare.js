@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class CloseSquare extends Component {
     
     render() {
         const {
-            width = '71px',
-            height = '71px',
+            width = "71px",
+            height = "71px",
             left,
             top
         } = this.props;

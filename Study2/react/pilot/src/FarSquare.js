@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class FarSquare extends Component {
     
     render() {
         const {
-            width = '99px',
-            height = '99px',
+            width = "99px",
+            height = "99px",
             left,
             top
         } = this.props;
