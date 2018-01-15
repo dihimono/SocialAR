@@ -27,21 +27,18 @@ class App extends Component {
     }
 
     writeAddress(myAddress) {
-        console.log("====myAddress,", myAddress);
         this.setState({
             address: myAddress
         });
     }
 
     writeAge(myAge) {
-        console.log("====myAge,", myAge);
         this.setState({
             age: myAge
         });
     }
 
     writeSex(mySex) {
-        console.log("====mySex,", mySex);
         this.setState({
             sex: mySex
         });
@@ -115,7 +112,6 @@ class App extends Component {
         var ageResponse = entryList[43] + "=" + this.state.age + "&";
         var sexResponse = entryList[44] + "=" + this.state.sex;
         link = link.concat(addrResponse + ageResponse + sexResponse);
-        console.log("===== link: " + link); 
         axios.get(link);
         //window.open(link);
     }

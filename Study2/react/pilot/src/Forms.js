@@ -55,7 +55,6 @@ class Forms extends Component {
 
         //let forms =  document.querySelectorAll("addr");
         //var nameValue = .value;
-        console.log("====nameValue ", this.state.radio);
         return (
             <div className="form">
                 {(() => {
