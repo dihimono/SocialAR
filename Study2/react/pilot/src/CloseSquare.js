@@ -13,7 +13,12 @@ class CloseSquare extends Component {
         const style = { width, height, left, top };
 
         return (
-            <div className="close-square" style={style} />
+            <div className="close-square" style={style}>
+                <div className="ar-text">
+                    AR文字訊息
+                    範例文字
+                </div>
+            </div>
         );
     }
 }
