@@ -6,9 +6,13 @@ class Forms extends Component {
         super();
         this.state = {
             radio: 0,
-            address: "s"
+            address: "",
+            age: "",
+            sex: ""
         };
-        
+        this.addrChange = this.addrChange.bind(this); 
+        this.ageChange = this.ageChange.bind(this); 
+        this.sexChange = this.sexChange.bind(this); 
     }
     
     myclickRadio(no) {
@@ -18,10 +22,25 @@ class Forms extends Component {
         
     }
 
-    handleChange(e) {
+    addrChange(e) {
         this.setState({
-            address: e
+            address: e.target.value
         });
+        this.props.myWriteAddress(e.target.value);
+    }
+
+    ageChange(e) {
+        this.setState({
+            age: e.target.value
+        });
+        this.props.myWriteAge(e.target.value);
+    }
+
+    sexChange(e) {
+        this.setState({
+            sex: e.target.value
+        });
+        this.props.myWriteSex(e.target.value);
     }
    
     render() {
@@ -29,7 +48,9 @@ class Forms extends Component {
             myclickNext,
             myclickBack,
             page,
-            myWriteAddress
+            myWriteAddress,
+            myWriteAge,
+            myWriteSex
         } = this.props;
 
         //let forms =  document.querySelectorAll("addr");
@@ -61,18 +82,15 @@ class Forms extends Component {
                                 <Form>
                                     <FormGroup controlId="formInlineName" >
                                         <ControlLabel>電子信箱</ControlLabel>{" "}
-                                        <FormControl type="text" className="addr" value={this.state.address} placeholder="aaa@gmail.com" onChange={() => {
-                                            myWriteAddress(this.state.address);
-                                            this.handleChange();
-                                        }} />
+                                        <FormControl type="text" className="addr" value={this.state.address} placeholder="example@gmail.com" onChange={this.addrChange} />
                                     </FormGroup>{" "}
                                     <FormGroup controlId="formInlineName">
                                         <ControlLabel>年齡</ControlLabel>{" "}
-                                        <FormControl type="text" placeholder="18" />
+                                        <FormControl type="text" placeholder="18" value={this.state.age} onChange={this.ageChange}/>
                                     </FormGroup>{" "}
                                     <FormGroup controlId="formInlineName">
                                         <ControlLabel>性別</ControlLabel>{" "}
-                                        <FormControl type="text" placeholder="男" />
+                                        <FormControl type="text" placeholder="男" value={this.state.sex} onChange={this.sexChange}/>
                                     </FormGroup>{" "}
                                 </Form>
                             </div>

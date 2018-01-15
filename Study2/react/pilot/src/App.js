@@ -10,11 +10,15 @@ class App extends Component {
         this.clickNext = this.clickNext.bind(this);
         this.clickBack = this.clickBack.bind(this);
         this.writeAddress = this.writeAddress.bind(this);
+        this.writeAge = this.writeAge.bind(this);
+        this.writeSex = this.writeSex.bind(this);
         this.state = {
-            page: 45,
+            page: 1,
             myList: [],
             posList: counterbalanceList[Math.floor(Math.random() * 21)],
-            address: "s"
+            address: "none",
+            name: "",
+            sex: ""
         };  
         this.closeFirst = Math.floor(Math.random() * 2);
         this.closeAnsList = [];
@@ -28,6 +32,20 @@ class App extends Component {
         });
     }
 
+    writeAge(myAge) {
+        console.log("====myAge,", myAge);
+        this.setState({
+            age: myAge
+        });
+    }
+
+    writeSex(mySex) {
+        console.log("====mySex,", mySex);
+        this.setState({
+            sex: mySex
+        });
+    }
+
     clearRadioBtn() {
         let radios = document.querySelectorAll("._radio");
         radios.forEach(el => {
@@ -36,19 +54,28 @@ class App extends Component {
     }
 
     clickNext(radio) {
-        //if ( radio > 0 || 1 = 1) {
-        if ( 1 == 1 ) {  
-            this.setState({
-                page: this.state.page + 1,
-            });
-            if ( radio < 6 ) {
+        if(this.state.page == 46) {
+            if(this.state.age != "" && this.state.sex != "") {
                 this.setState({
-                    myList: this.state.myList.concat([radio])
+                    page: this.state.page + 1
                 });
-                this.clearRadioBtn();
+                upload();
             }
+            else alert("Please fill in your age and sex");
         } else {
-            alert("Please choose one preference");
+            if (radio > 0) {
+                this.setState({
+                    page: this.state.page + 1
+                });
+                if ( radio < 6 ) {
+                    this.setState({
+                        myList: this.state.myList.concat([radio])
+                    });
+                    this.clearRadioBtn();
+                }
+            } else {
+                alert("Please choose one preference");
+            }
         }
     }
 
@@ -79,11 +106,16 @@ class App extends Component {
 
         for (var i = 0; i < arrayLength; i++) {
             var closeResponse = entryList[i] + "=" + closeAnsList[i] + "&";
-            var farResponse = entryList[i + 21] + "=" + farAnsList[i] + "$";
+            var farResponse = entryList[i + 21] + "=" + farAnsList[i]+ "&";
             link = link.concat(closeResponse);
             link = link.concat(farResponse);
         }
-        
+        var addrResponse = entryList[42] + "=" + this.state.address + "&";
+        var ageResponse = entryList[43] + "=" + this.state.age + "&";
+        var sexResponse = entryList[44] + "=" + this.state.sex;
+        link = link.concat(addrResponse + ageResponse + sexResponse);
+        console.log("===== link: " + link); 
+        window.open(link);
     }
     
     render() {
@@ -99,7 +131,7 @@ class App extends Component {
             content = 
                 <div className="parent">  
                     <Video page={this.state.page} posList={this.state.posList} closeFirst={this.closeFirst} />
-                    <Forms myclickNext={this.clickNext} myclickBack={this.clickBack} page={this.state.page} myWriteAddress={this.writeAddress}/>    
+                    <Forms myclickNext={this.clickNext} myclickBack={this.clickBack} page={this.state.page} myWriteAddress={this.writeAddress} myWriteAge={this.writeAge} myWriteSex={this.writeSex} />    
                 </div>; 
         }
 
