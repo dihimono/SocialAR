@@ -3,6 +3,7 @@ import Video from "./Video.js";
 import Forms from "./Forms.js";
 import counterbalanceList from "./configs/counterbalanceList";
 import entryList from "./configs/entry.js";
+import axios from "axios";
 
 class App extends Component {
     constructor() {
@@ -54,12 +55,12 @@ class App extends Component {
     }
 
     clickNext(radio) {
-        if(this.state.page == 46) {
-            if(this.state.age != "" && this.state.sex != "") {
+        if(this.state.page == 45) {
+            if(this.state.age !== "" && this.state.sex !== "") {
                 this.setState({
                     page: this.state.page + 1
                 });
-                upload();
+                this.upload();
             }
             else alert("Please fill in your age and sex");
         } else {
@@ -115,14 +116,14 @@ class App extends Component {
         var sexResponse = entryList[44] + "=" + this.state.sex;
         link = link.concat(addrResponse + ageResponse + sexResponse);
         console.log("===== link: " + link); 
-        window.open(link);
+        axios.get(link);
+        //window.open(link);
     }
     
     render() {
         
         let content = null;
         if ( this.state.page == 46) {
-            this.upload();
             content = 
                 <div className="final">
                     感謝你參與本次的問卷調查，我們將會於(1/25)抽出抽獎的獎品。屆時將會再以 e-mail 通知中獎人，謝謝。
