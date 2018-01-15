@@ -7,16 +7,16 @@ class CloseSquare extends Component {
             width = "71px",
             height = "71px",
             left,
-            top
+            top,
         } = this.props;
 
-        const style = { width, height, left, top };
-
+        const style = { width, height, left, top, backgroundColor: "black" };
         return (
             <div className="close-square" style={style}>
-                <div className="ar-text">
-                    AR文字訊息
-                    範例文字
+                <div className="ar-text" style={{opacity: 100, color: "white", size: "7px", textAlign: "center"}}>
+                    範例文字1 <br/>
+                    範例文字2 <br/>
+                    範例文字3 <br/> 
                 </div>
             </div>
         );
