@@ -7,7 +7,8 @@
   <body>
     <script>
       var cnt = 0;
-    	var socket = io.connect();
+      var socket = io.connect();
+      var lock = false;
 
       function showList() {
         console.log( cnt + " " + wordlist[cnt]);
@@ -16,7 +17,11 @@
         if( cnt > 32 ) cnt = 0;
       };
 
-    	$(document).keyup(function (e){
+      function unLock() {
+        lock = false;
+      };
+
+      $(document).keyup(function (e){
 
         // press enter : the list fade IN 
         if( e.which === 13 ) {
@@ -25,14 +30,24 @@
           setTimeout(showList, 5000);
           setTimeout(showList, 45000);
           setTimeout(showList, 85000);
+          setTimeout(showList, 125000);
+
         }
 
-    		// Space = 32, Y = 89, N = 78
-    		if( e.which === 32 ) { socket.emit('distract'); }
-        if( e.which === 78 ) { socket.emit('click_s', 'no'); }
-        if( e.which === 89 ) { socket.emit('click_s', 'yes'); }
+        // Space = 32, Y = 89, N = 78
+        if( e.which === 32 ) { socket.emit('distract'); }
+        if( e.which === 78 && !lock ) {
+          socket.emit('click_s', 'no');
+          lock = true;
+          setTimeout(unLock, 200);
+        }
+        if( e.which === 89 && !lock ) {
+          socket.emit('click_s', 'yes');
+          lock = true;
+          setTimeout(unLock, 200);
+        }
 
-    	});
+      });
     </script>
 
     <div>
